@@ -1,126 +1,48 @@
-<?php
-include_once 'connect_db.php';
-if(isset($_POST['submit'])){
-$username=$_POST['username'];
-$password=$_POST['password'];
-$position=$_POST['position'];
-switch($position){
-case 'Admin':
-$result=mysql_query("SELECT admin_id, username FROM admin WHERE username='$username' AND password='$password'");
-$row=mysql_fetch_array($result);
-if($row>0){
-session_start();
-$_SESSION['admin_id']=$row[0];
-$_SESSION['username']=$row[1];
-header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/admin.php");
-}else{
-$message="<font color=red><br><center>Invalid login Try Again</center></font>";
-}
-break;
-case 'Pharmacist':
-$result=mysql_query("SELECT pharmacist_id, first_name,last_name,staff_id,username FROM pharmacist WHERE username='$username' AND password='$password'");
-$row=mysql_fetch_array($result);
-if($row>0){
-session_start();
-$_SESSION['pharmacist_id']=$row[0];
-$_SESSION['first_name']=$row[1];
-$_SESSION['last_name']=$row[2];
-$_SESSION['staff_id']=$row[3];
-$_SESSION['username']=$row[4];
-header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/pharmacist.php");
-}else{
-$message="<font color=red><br><center>Invalid login Try Again</center></font>";
-}
-break;
-case 'Cashier':
-$result=mysql_query("SELECT cashier_id, first_name,last_name,staff_id,username FROM cashier WHERE username='$username' AND password='$password'");
-$row=mysql_fetch_array($result);
-if($row>0){
-session_start();
-$_SESSION['cashier_id']=$row[0];
-$_SESSION['first_name']=$row[1];
-$_SESSION['last_name']=$row[2];
-$_SESSION['staff_id']=$row[3];
-$_SESSION['username']=$row[4];
-header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/cashier.php");
-}else{
-$message="<font color=red><br><center>Invalid login Try Again</center></font>";
-}
-break;
-case 'Manager':
-$result=mysql_query("SELECT manager_id, first_name,last_name,staff_id,username FROM manager WHERE username='$username' AND password='$password'");
-$row=mysql_fetch_array($result);
-if($row>0){
-session_start();
-$_SESSION['manager_id']=$row[0];
-$_SESSION['first_name']=$row[1];
-$_SESSION['last_name']=$row[2];
-$_SESSION['staff_id']=$row[3];
-$_SESSION['username']=$row[4];
-header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/manager.php");
-}else{
-$message="<font color=red><br><center>Invalid login Try Again</center></font>";
-}
-break;
-}}
-echo <<<LOGIN
-
 <!DOCTYPE html>
-<html>
-<head>
-<title>Pharmacy Management System</title>
-<link rel="stylesheet" type="text/css" href="style/ml.css">
-
-<style>
-#content {
-height: auto;
-}
-#main{
-height: auto;}
-
-
-
-</style>
-
-
-
-</head>
-<body>
-
-<div id="content">
-<div id="header">
-
-<h1>Pharmacy Management System</h1>
-</div>
-<div id="main">
-
-  <section class="container">
-  
-     <div class="login">
-	 <img src="images/ulg.png">
-      <!--<h1><center>Login here</center></h1>-->
-	  $message
-	  <form method="post" action="index.php" align="center" >
-	  
-		<p><input type="text" name="username" value="" placeholder="Username" required></p>
-        <p><input type="password" name="password" value="" placeholder="Password" required></p>
-		<p><select name="position">
-		<option>Login as......</option>
-			<option>Admin</option>
-			<option>Manager</option>
-			<option>Pharmacist</option>
-			<option>Cashier</option>
-			
-			</select></p>
-        <p class="submit"><input type="submit" name="submit" value="Login"></p>
-      </form>
-    </div>
-    </section>
-</div>
-<div id="footer" align="Center"> </div>
-</div>
-
-</body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pharmacy Management - Login</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<script src="bootstrap/js/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card m-auto p-2">
+        <div class="card-body">
+          <form name="login-form" class="login-form" action="home.php" method="post" onsubmit="return validateCredentials();">
+            <div class="logo">
+        			<img src="images/prof.jpg" class="profile"/>
+        			<h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+        		</div> <!-- logo class -->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user text-white"></i></span>
+              </div>
+              <input name="username" type="text" class="form-control" placeholder="username" onkeyup="validate();" required>
+            </div> <!--input-group class -->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key text-white"></i></span>
+              </div>
+              <input name="password" type="password" class="form-control" placeholder="password" onkeyup="validate();" required>
+            </div> <!-- input-group class -->
+            <div class="form-group">
+              <button class="btn btn-default btn-block btn-custom">Login</button>
+            </div>
+          </form><!-- form close -->
+        </div> <!-- cord-body class -->
+        <div class="card-footer">
+          <div class="text-center">
+            <a class="text-light" href="#">Forgot password?</a>
+          </div>
+        </div> <!-- cord-footer class -->
+      </div> <!-- card class -->
+    </div> <!-- container class -->
+  </body>
 </html>
-LOGIN;
-
