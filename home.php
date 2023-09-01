@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
     <meta charset="utf-8">
     <title>Dashboard - Home</title>
@@ -96,7 +96,7 @@
                         $total = $total + $row['NET_TOTAL'];
                     ?>
                     <th>Total Sales</th>
-                    <th class="text-success">Rs. <?php echo $total; ?></th>
+                    <th class="text-success">GH&cent;<?php echo $total; ?></th>
                   </tr>
                   <tr>
                     <?php
@@ -109,7 +109,7 @@
                     }
                     ?>
                     <th>Total Purchase</th>
-                    <th class="text-danger">Rs. <?php echo $total; ?></th>
+                    <th class="text-danger">GH&cent;<?php echo $total; ?></th>
                   </tr>
                 </tbody>
               </table>

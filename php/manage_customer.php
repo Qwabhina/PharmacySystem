@@ -20,9 +20,7 @@
       $name = ucwords($_GET["name"]);
       $contact_number = $_GET["contact_number"];
       $address = ucwords($_GET["address"]);
-      $doctor_name = ucwords($_GET["doctor_name"]);
-      $doctor_address = ucwords($_GET["doctor_address"]);
-      updateCustomer($id, $name, $contact_number, $address, $doctor_name, $doctor_address);
+      updateCustomer($id, $name, $contact_number, $address);
     }
 
     if(isset($_GET["action"]) && $_GET["action"] == "cancel")
@@ -56,8 +54,6 @@
       <td><?php echo $row['NAME']; ?></td>
       <td><?php echo $row['CONTACT_NUMBER']; ?></td>
       <td><?php echo $row['ADDRESS']; ?></td>
-      <td><?php echo $row['DOCTOR_NAME']; ?></td>
-      <td><?php echo $row['DOCTOR_ADDRESS']; ?></td>
       <td>
         <button href="" class="btn btn-info btn-sm" onclick="editCustomer(<?php echo $row['ID']; ?>);">
           <i class="fa fa-pencil"></i>
@@ -88,14 +84,6 @@ function showEditOptionsRow($seq_no, $row) {
       <code class="text-danger small font-weight-bold float-right" id="address_error" style="display: none;"></code>
     </td>
     <td>
-      <input type="text" class="form-control" value="<?php echo $row['DOCTOR_NAME']; ?>" placeholder="Doctor's Name" id="customer_doctors_name" onkeyup="validateName(this.value, 'doctor_name_error');">
-      <code class="text-danger small font-weight-bold float-right" id="doctor_name_error" style="display: none;"></code>
-    </td>
-    <td>
-      <textarea class="form-control" placeholder="Doctor's Address" id="customer_doctors_address" onblur="validateAddress(this.value, 'doctor_address_error');"><?php echo $row['DOCTOR_ADDRESS']; ?></textarea>
-      <code class="text-danger small font-weight-bold float-right" id="doctor_address_error" style="display: none;"></code>
-    </td>
-    <td>
       <button href="" class="btn btn-success btn-sm" onclick="updateCustomer(<?php echo $row['ID']; ?>);">
         <i class="fa fa-edit"></i>
       </button>
@@ -107,9 +95,9 @@ function showEditOptionsRow($seq_no, $row) {
   <?php
 }
 
-function updateCustomer($id, $name, $contact_number, $address, $doctor_name, $doctor_address) {
+function updateCustomer($id, $name, $contact_number, $address) {
   require "db_connection.php";
-  $query = "UPDATE customers SET NAME = '$name', CONTACT_NUMBER = '$contact_number', ADDRESS = '$address', DOCTOR_NAME = '$doctor_name', DOCTOR_ADDRESS = '$doctor_address' WHERE ID = $id";
+  $query = "UPDATE customers SET NAME = '$name', CONTACT_NUMBER = '$contact_number', ADDRESS = '$address' WHERE ID = $id";
   $result = mysqli_query($con, $query);
   if(!empty($result))
     showCustomers(0);

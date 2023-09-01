@@ -68,8 +68,7 @@
               <label class="font-weight-bold" for="">Payment Type :</label>
               <select id="payment_type" class="form-control">
               	<option value="1">Cash Payment</option>
-              	<option value="2">Card Payment</option>
-                <option value="3">Net Banking</option>
+              	<option value="2">MoMo Payment</option>
               </select>
             </div>
             <div class="col col-md-2 form-group">
@@ -102,7 +101,7 @@
             <div class="row col col-md-12 font-weight-bold">
               <div class="col col-md-2">Medicine Name</div>
               <div class="col col-md-2">Batch ID</div>
-              <div class="col col-md-1">Ava.Qty.</div>
+              <div class="col col-md-1">Qty</div>
               <div class="col col-md-1">Expiry</div>
               <div class="col col-md-1">Quantity</div>
               <div class="col col-md-1">MRP</div>
