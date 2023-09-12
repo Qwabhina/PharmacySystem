@@ -1,4 +1,5 @@
 <?php
+  session_start();
 
   if(isset($_GET['action']) && $_GET['action'] == 'is_setup_done')
     isSetupDone();
@@ -29,6 +30,7 @@
         $query = "UPDATE admin_credentials SET IS_LOGGED_IN = 'true'";
         $result = mysqli_query($con, $query);
         echo "true";
+        $_SESSION['user'] = $username === 'admin' ? "Admin" : "Cashier";
       }
       else
         echo "false";

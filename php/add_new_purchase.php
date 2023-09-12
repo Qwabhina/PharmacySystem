@@ -67,7 +67,7 @@
         $result = mysqli_query($con, $query);
       }
       else {
-        $query = "INSERT INTO medicines_stock (NAME, BATCH_ID, EXPIRY_DATE, QUANTITY, MRP, RATE, INVOICE_NUMBER) VALUES('$name', '$batch_id', '$expiry_date', $quantity, $mrp, $rate, $invoice_number)";
+        $query = "INSERT INTO medicines_stock (NAME, BATCH_ID, EXPIRY_DATE, QUANTITY, MRP, RATE) VALUES('$name', '$batch_id', '$expiry_date', $quantity, $mrp, $rate)";
         $result = mysqli_query($con, $query);
       }
     }

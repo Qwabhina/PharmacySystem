@@ -1,3 +1,11 @@
+<?php 
+session_start();
+
+if(isset($_SESSION['user'])){
+  $admin = $_SESSION['user'] === 'Admin' ? true : false;
+}
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,7 +22,7 @@
     <script src="js/restrict.js"></script>
   </head>
   <body>
-    <?php include "sections/sidenav.html"; ?>
+    <?php include "sections/sidenav.php"; ?>
     <div class="container-fluid">
       <div class="container">
         <!-- header section -->
@@ -66,11 +74,11 @@
                   </div>
                 ';
               }
-              createSection1('manage_customer.php', 'Total Customer', 'customers');
-              createSection1('manage_supplier.php', 'Total Supplier', 'suppliers');
-              createSection1('manage_medicine.php', 'Total Medicine', 'medicines');
-              createSection1('manage_medicine_stock.php?out_of_stock', 'Out of Stock', 'medicines_stock');
-              createSection1('manage_medicine_stock.php?expired', 'Expired', 'medicines_stock');
+              if($admin) createSection1('manage_customer.php', 'Total Customer', 'customers');
+              if($admin) createSection1('manage_supplier.php', 'Total Supplier', 'suppliers');
+            if ($admin) createSection1('manage_medicine.php', 'Total Medicine', 'medicines');
+            if ($admin) createSection1('manage_medicine_stock.php?out_of_stock', 'Out of Stock', 'medicines_stock');
+            if ($admin) createSection1('manage_medicine_stock.php?expired', 'Expired', 'medicines_stock');
               createSection1('manage_invoice.php', 'Total Invoice', 'invoices');
             ?>
 
@@ -107,9 +115,12 @@
                       while($row = mysqli_fetch_array($result))
                         $total = $total + $row['TOTAL_AMOUNT'];
                     }
+
+                    if($admin){
                     ?>
                     <th>Total Purchase</th>
                     <th class="text-danger">GH&cent;<?php echo $total; ?></th>
+                    <?php } ?>
                   </tr>
                 </tbody>
               </table>
@@ -137,11 +148,11 @@
             }
             createSection2('address-card', 'new_invoice.php', 'Create New Invoice');
             createSection2('handshake', 'add_customer.php', 'Add New Customer');
-            createSection2('shopping-bag', 'add_medicine.php', 'Add New Medicine');
-            createSection2('group', 'add_supplier.php', 'Add New Supplier');
-            createSection2('bar-chart', 'add_purchase.php', 'Add New Purchase');
+          if ($admin)  createSection2('shopping-bag', 'add_medicine.php', 'Add New Medicine');
+          if ($admin)  createSection2('group', 'add_supplier.php', 'Add New Supplier');
+          if ($admin)  createSection2('bar-chart', 'add_purchase.php', 'Add New Purchase');
             createSection2('book', 'sales_report.php', 'Sales Report');
-            createSection2('book', 'purchase_report.php', 'Purchase Report');
+          if ($admin)   createSection2('book', 'purchase_report.php', 'Purchase Report');
           ?>
 
         </div>
